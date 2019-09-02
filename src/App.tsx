@@ -1,68 +1,30 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import './App.css';
+import { dragState } from './DragState';
+import { ClassA } from './components/ClassA/ClassA';
+import { ClassB } from './components/ClassB/ClassB';
+import { dragManager } from './DragManager';
+
+type IProps = {};
 
 interface IState {
-  isDragging: boolean;
   x: number;
   y: number;
 }
 
-export class App extends React.Component<{}, IState> {
-
-  private svgRef: HTMLElement | null = null;
-
-  constructor() {
-    super({});
-    this.state = {
-      isDragging: false,
-      x: 0,
-      y: 0,
-    };
-  }
-
-  private onMouseDrag(event: React.MouseEvent) {
-    if (!this.state.isDragging) {
-      return;
-    }
-
-    const elem: SVGGraphicsElement = event.target as SVGGraphicsElement;
-    const CTM = elem.getScreenCTM();
-    if (!CTM) {
-      return;
-    }
-
-    this.setState({
-      x: (event.clientX - CTM.e) / CTM.a,
-      y: (event.clientY - CTM.f) / CTM.d,
-    });
-  }
-
-  private dragStart() {
-    this.setState({
-      isDragging: true,
-    });
-  }
-
-  private dragEnd() {
-    this.setState({
-      isDragging: false,      
-    });
-  }
-
+@observer
+export class App extends React.Component<IProps, IState> {
   public render() {
     return (
       <div className="App">
         <svg width="1000" height="500" viewBox="0 0 1000 500"
-          onMouseMove={(event: React.MouseEvent) => this.onMouseDrag(event)}
-          onMouseDown={() => this.dragStart()}
-          onMouseUp={() => this.dragEnd()}
+          onMouseMove={(event) => dragManager.onMouseDrag(event)}
+          onMouseDown={(event) => dragManager.dragStart(event)}
+          onMouseUp={(event) => dragManager.dragEnd(event)}
         >
-          <rect
-            x={this.state.x}
-            y={this.state.y}
-            width="200"
-            height="300"
-          />
+          <ClassA />
+          <ClassB />
         </svg>
       </div>
     );
