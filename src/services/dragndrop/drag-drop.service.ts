@@ -1,5 +1,5 @@
 import { DragDropFsm } from "./fsm/drag-drop.fsm";
-import { MouseEventService } from "../mouse/mouse.event";
+import { MouseEventService, mouseEventService } from "../mouse/mouse.event";
 
 export type Coords = {
   x: number;
@@ -37,7 +37,6 @@ export class DragDropService {
   }
 
   public getCoordsFromCurrentEvent(): Coords | undefined {
-    const mouseEvent = new MouseEventService(this.currentEvent);
-    return mouseEvent.getCoords();
+    return mouseEventService.getCoords(this.currentEvent);
   }
 }

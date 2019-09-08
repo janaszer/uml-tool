@@ -2,12 +2,14 @@ import { DragDropState } from "../drag-drop.state";
 import { Idle } from "./idle";
 import { DragDropService } from "../../drag-drop.service";
 import { classCords } from "../../../../components/class-visualization/class-visualization-coords";
+import { mouseEventService } from "../../../mouse/mouse.event";
 
 export class DragMove extends DragDropState {
   public name: string = 'Drag move';
 
   public onMouseUp(dragService: DragDropService): DragDropState {
     classCords.commitPosition();
+    mouseEventService.clearOriginalTarget();
     return new Idle();
   }
 

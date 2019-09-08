@@ -1,6 +1,7 @@
 import React from 'react';
 import { classCords } from './class-visualization-coords';
 import { observer } from 'mobx-react';
+import { mouseEventService } from '../../services/mouse/mouse.event';
 
 @observer
 export class ClassVisualization extends React.Component<{}> {
@@ -17,7 +18,7 @@ export class ClassVisualization extends React.Component<{}> {
       x={classCords.coords.x}
       y={classCords.coords.y}
       style={strokeStyle}
-      onClick={(event) => {}}
+      onMouseDown={(event) => { mouseEventService.setOriginalTarget(event.target as SVGElement); }}
       width="100"
       height="100"
     />

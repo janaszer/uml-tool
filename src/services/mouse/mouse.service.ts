@@ -1,5 +1,5 @@
 import { DragDropService, Coords } from "../dragndrop/drag-drop.service";
-import { MouseEventService } from "./mouse.event";
+import { MouseEventService, mouseEventService } from "./mouse.event";
 
 export class MouseService {
   constructor(
@@ -21,8 +21,7 @@ export class MouseService {
       this.mouseDown(event);
     });
     element.addEventListener('mouseout', (event) => {
-      const eventService = new MouseEventService(event);
-      const coords = eventService.getCoords();
+      const coords = mouseEventService.getCoords(event);
       if (coords) {
         if (this.isCoordOutsideElement(coords, elementDimension)) {
           this.mouseUp(event);
