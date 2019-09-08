@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { Coords } from "../../DragState";
+import { Coords } from "../../services/dragndrop/drag-drop.service";
 
 export class ClassACoords {
   

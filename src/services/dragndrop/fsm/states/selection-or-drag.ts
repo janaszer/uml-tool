@@ -5,15 +5,16 @@ import { DragDropService } from "../../drag-drop.service";
 
 export class SelectionOrDrag extends DragDropState {
   public name: string = 'Selection or drag';
-  public onMouseMove(dragService: DragDropService): DragDropState {
-    return new DragStart();
-  }
-  public onMouseDown(dragService: DragDropService): DragDropState {
+
+  public onInit(dragService: DragDropService): DragDropState {
     const originalCoords = dragService.getCoordsFromCurrentEvent();
     if (originalCoords) {
       dragService.setOriginalCoords(originalCoords);
     }
     return this;
+  }
+  public onMouseMove(dragService: DragDropService): DragDropState {
+    return new DragStart();
   }
   public onMouseUp(dragService: DragDropService): DragDropState {
     return new SelectionToggle();

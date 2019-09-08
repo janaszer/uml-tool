@@ -1,8 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import './App.css';
-import { ClassA } from './components/ClassA/ClassA';
-import { ClassB } from './components/ClassB/ClassB';
+import { ClassVisualization } from './components/class-visualization/class-visualization';
 import { MouseService } from './services/mouse/mouse.service';
 import { DragDropService } from './services/dragndrop/drag-drop.service';
 import { dragDropFsm } from './services/dragndrop/fsm/drag-drop.fsm';
@@ -38,8 +37,7 @@ export class App extends React.Component<IProps, IState> {
           style={{ border: 'solid 1px black', }}
           ref={this.svgRef}
         >
-          <ClassA />
-          <ClassB />
+          <ClassVisualization />
         </svg>
       </div>
     );

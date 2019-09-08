@@ -1,4 +1,4 @@
-import { Coords } from "../../DragState";
+import { Coords } from "../dragndrop/drag-drop.service";
 
 export class MouseEventService {
   constructor(
