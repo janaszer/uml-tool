@@ -44,12 +44,15 @@ export class DragDropFsm {
   }
 
   private setNextState(state: DragDropState, dragDropService: DragDropService) {
+    if (state === this.currentState) {
+      return;
+    }
+    this.currentState = state;
     const nextState = state.onInit && state.onInit(dragDropService);
     if (nextState) {
       this.currentState = nextState;
       return;
     }
-    this.currentState = state;
   }
 }
 
