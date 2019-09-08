@@ -35,10 +35,8 @@ export class App extends React.Component<IProps, IState> {
       <div className="App">
         <div style={{ position: 'fixed', top: 0, right: 0 }}>{dragDropFsm.currentState.name}</div>
         <svg width="1000" height="500" viewBox="0 0 1000 500"
+          style={{ border: 'solid 1px black', }}
           ref={this.svgRef}
-          /* onMouseMove={(event) => dragManager.onMouseDrag(event)}
-          onMouseDown={(event) => dragManager.dragStart(event)}
-          onMouseUp={(event) => dragManager.dragEnd(event)} */
         >
           <ClassA />
           <ClassB />
