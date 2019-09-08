@@ -1,11 +1,11 @@
 import React from 'react';
-import { classACoords } from './ClassACoords';
+import { classCords } from './class-visualization-coords';
 import { observer } from 'mobx-react';
 
 @observer
 export class ClassVisualization extends React.Component<{}> {
   public render() {
-    if (!classACoords.coords) {
+    if (!classCords.coords) {
       return null;
     }
     const strokeStyle = false ? {
@@ -14,10 +14,10 @@ export class ClassVisualization extends React.Component<{}> {
     } : {};
 
     return <rect
-      x={classACoords.coords.x}
-      y={classACoords.coords.y}
+      x={classCords.coords.x}
+      y={classCords.coords.y}
       style={strokeStyle}
-      onClick={(event) => console.log('selection toggle')}
+      onClick={(event) => {}}
       width="100"
       height="100"
     />

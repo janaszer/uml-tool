@@ -1,4 +1,4 @@
-import { DragDropService } from "../dragndrop/drag-drop.service";
+import { DragDropService, Coords } from "../dragndrop/drag-drop.service";
 import { MouseEventService } from "./mouse.event";
 
 export class MouseService {
@@ -7,8 +7,10 @@ export class MouseService {
   ) { }
 
   public attachEvents(element: SVGGraphicsElement) {
-    const elementWidth = element.clientWidth;
-    const elementHeight = element.clientHeight;
+    const elementDimension = {
+      x: element.clientWidth,
+      y: element.clientHeight,
+    };
     element.addEventListener('mousemove', (event: MouseEvent) => {
       this.mouseMove(event);
     });
@@ -22,11 +24,18 @@ export class MouseService {
       const eventService = new MouseEventService(event);
       const coords = eventService.getCoords();
       if (coords) {
-        if (coords.x < 0 || coords.x > elementWidth || coords.y < 0 || coords.y > elementHeight) {
+        if (this.isCoordOutsideElement(coords, elementDimension)) {
           this.mouseUp(event);
         }
       }
     });
+  }
+
+  private isCoordOutsideElement(coords: Coords, elementDimension: Coords) {
+    return coords.x < 0 ||
+      coords.x > elementDimension.x ||
+      coords.y < 0 ||
+      coords.y > elementDimension.y;
   }
 
   private mouseDown(event: MouseEvent) {

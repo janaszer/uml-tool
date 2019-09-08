@@ -1,12 +1,13 @@
 import { DragDropState } from "../drag-drop.state";
 import { Idle } from "./idle";
 import { DragDropService } from "../../drag-drop.service";
-import { classACoords } from "../../../../components/class-visualization/ClassACoords";
+import { classCords } from "../../../../components/class-visualization/class-visualization-coords";
 
 export class DragMove extends DragDropState {
   public name: string = 'Drag move';
 
   public onMouseUp(dragService: DragDropService): DragDropState {
+    classCords.commitPosition();
     return new Idle();
   }
 
@@ -19,10 +20,7 @@ export class DragMove extends DragDropState {
     const xShift = currentCoords.x - originalCoords.x;
     const yShift = currentCoords.y - originalCoords.y;
 
-    classACoords.coords = {
-      x: xShift,
-      y: yShift,
-    };
+    classCords.setCoordsOffset({ x: xShift, y: yShift });
 
     return this;
   }
