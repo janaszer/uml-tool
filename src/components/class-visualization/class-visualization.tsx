@@ -1,12 +1,16 @@
 import React from 'react';
-import { classCords } from './class-visualization-coords';
+import { ClassVisualizationCoords } from './class-visualization-coords';
 import { observer } from 'mobx-react';
 import { mouseEventService } from '../../services/mouse/mouse.event';
 
+interface IProps {
+  classCords: ClassVisualizationCoords;
+}
+
 @observer
-export class ClassVisualization extends React.Component<{}> {
+export class ClassVisualization extends React.Component<IProps> {
   public render() {
-    if (!classCords.coords) {
+    if (!this.props.classCords.coords) {
       return null;
     }
     const strokeStyle = false ? {
@@ -15,10 +19,10 @@ export class ClassVisualization extends React.Component<{}> {
     } : {};
 
     return <rect
-      x={classCords.coords.x}
-      y={classCords.coords.y}
+      x={this.props.classCords.coords.x}
+      y={this.props.classCords.coords.y}
       style={strokeStyle}
-      onMouseDown={(event) => { mouseEventService.setOriginalTarget(event.target as SVGElement); }}
+      onMouseDown={(event) => { mouseEventService.setOriginalTarget(this); }}
       width="100"
       height="100"
     />

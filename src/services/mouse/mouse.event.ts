@@ -1,11 +1,10 @@
 import { Coords } from "../dragndrop/drag-drop.service";
+import { ClassVisualization } from "../../components/class-visualization/class-visualization";
 
 export class MouseEventService {
+  private originalTarget?: ClassVisualization;
 
-  // should be changed to class instead of svg element
-  private originalTarget?: SVGElement;
-
-  public setOriginalTarget(target: SVGElement) {
+  public setOriginalTarget(target: ClassVisualization) {
     this.originalTarget = target;
   }
 

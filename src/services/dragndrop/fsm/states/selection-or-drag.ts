@@ -16,7 +16,7 @@ export class SelectionOrDrag extends DragDropState {
     return this;
   }
   public onMouseMove(dragService: DragDropService): DragDropState {
-    // TODO: compare original target to class
+    // TODO: compare original target with class
     if (mouseEventService.getOriginalTarget()) {
       return new DragStart();
     }

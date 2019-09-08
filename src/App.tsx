@@ -5,6 +5,7 @@ import { ClassVisualization } from './components/class-visualization/class-visua
 import { MouseService } from './services/mouse/mouse.service';
 import { DragDropService } from './services/dragndrop/drag-drop.service';
 import { dragDropFsm } from './services/dragndrop/fsm/drag-drop.fsm';
+import { classesVisualization } from './classes';
 
 type IProps = {};
 
@@ -37,7 +38,7 @@ export class App extends React.Component<IProps, IState> {
           style={{ border: 'solid 1px black', }}
           ref={this.svgRef}
         >
-          <ClassVisualization />
+          {classesVisualization.map(classCoords => <ClassVisualization classCords={classCoords}/>)}
         </svg>
       </div>
     );

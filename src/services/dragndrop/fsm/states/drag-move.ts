@@ -1,14 +1,14 @@
 import { DragDropState } from "../drag-drop.state";
 import { Idle } from "./idle";
 import { DragDropService } from "../../drag-drop.service";
-import { classCords } from "../../../../components/class-visualization/class-visualization-coords";
 import { mouseEventService } from "../../../mouse/mouse.event";
+import { classesVisualization } from "../../../../classes";
 
 export class DragMove extends DragDropState {
   public name: string = 'Drag move';
 
   public onMouseUp(dragService: DragDropService): DragDropState {
-    classCords.commitPosition();
+    classesVisualization.forEach(classVis => classVis.commitPosition());
     mouseEventService.clearOriginalTarget();
     return new Idle();
   }
@@ -22,7 +22,8 @@ export class DragMove extends DragDropState {
     const xShift = currentCoords.x - originalCoords.x;
     const yShift = currentCoords.y - originalCoords.y;
 
-    classCords.setCoordsOffset({ x: xShift, y: yShift });
+    classesVisualization
+      .forEach(classVis => classVis.setCoordsOffset({ x: xShift, y: yShift }));
 
     return this;
   }
