@@ -1,11 +1,16 @@
 import { DragDropState } from '../drag-drop.state';
 import { Idle } from './idle';
+import { mouseEventService } from '../../../mouse/mouse.event';
+import { selectionService } from '../../../selection/selection.service';
 
 export class SelectionToggle extends DragDropState {
 
   public name: string = 'selection-toggle';
   public onInit() {
-    // select object here
+    const originalTarget = mouseEventService.getOriginalTarget();
+    if (originalTarget) {
+      selectionService.toggleSelection(originalTarget.id);
+    }
     return new Idle();
   }
 }

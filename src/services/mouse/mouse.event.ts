@@ -1,10 +1,10 @@
 import { Coords } from "../dragndrop/drag-drop.service";
-import { ClassVisualization } from "../../components/class-visualization/class-visualization";
+import { ClassVisualizationCoords } from "../../components/class-visualization/class-visualization-coords";
 
 export class MouseEventService {
-  private originalTarget?: ClassVisualization;
+  private originalTarget?: ClassVisualizationCoords;
 
-  public setOriginalTarget(target: ClassVisualization) {
+  public setOriginalTarget(target: ClassVisualizationCoords) {
     this.originalTarget = target;
   }
 

@@ -2,6 +2,7 @@ import { observable, action } from "mobx";
 import { Coords } from "../../services/dragndrop/drag-drop.service";
 
 export class ClassVisualizationCoords {
+  public id: string;
   private originalCoords: Coords = {
     x: 0,
     y: 0,
@@ -13,7 +14,7 @@ export class ClassVisualizationCoords {
     y: 0,
   };
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, id: string) {
     this.originalCoords = {
       x,
       y,
@@ -22,6 +23,7 @@ export class ClassVisualizationCoords {
       x,
       y,
     };
+    this.id = id;
   }
 
   @action

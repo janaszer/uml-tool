@@ -6,6 +6,7 @@ import { MouseService } from './services/mouse/mouse.service';
 import { DragDropService } from './services/dragndrop/drag-drop.service';
 import { dragDropFsm } from './services/dragndrop/fsm/drag-drop.fsm';
 import { classesVisualization } from './classes';
+import { selectionService } from './services/selection/selection.service';
 
 type IProps = {};
 
@@ -30,6 +31,16 @@ export class App extends React.Component<IProps, IState> {
     }
   }
 
+  private renderClasses() {
+    return classesVisualization.map(
+      classCoords => {
+        const isSelected = selectionService.isSelected(classCoords.id);
+
+        return <ClassVisualization classCords={classCoords} isSelected={isSelected} />;
+      }
+    )
+  }
+
   public render() {
     return (
       <div className="App">
@@ -38,7 +49,7 @@ export class App extends React.Component<IProps, IState> {
           style={{ border: 'solid 1px black', }}
           ref={this.svgRef}
         >
-          {classesVisualization.map(classCoords => <ClassVisualization classCords={classCoords}/>)}
+          {this.renderClasses()}
         </svg>
       </div>
     );
