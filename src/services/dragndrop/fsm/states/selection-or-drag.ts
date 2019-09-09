@@ -2,9 +2,8 @@ import { DragDropState } from "../drag-drop.state";
 import { SelectionToggle } from "./selection-toggle";
 import { DragDropService } from "../../drag-drop.service";
 import { mouseEventService } from "../../../mouse/mouse.event";
-import { Idle } from "./idle";
 import { DragMove } from "./drag-move";
-import { DeselectAll } from "./deselect-all";
+import { RectangleSelectionMove } from "./rectangle-selection-move";
 
 export class SelectionOrDrag extends DragDropState {
   public name: string = 'Selection or drag';
@@ -24,7 +23,7 @@ export class SelectionOrDrag extends DragDropState {
       }
       return new DragMove();
     }
-    return new DeselectAll();
+    return new RectangleSelectionMove();
   }
   public onMouseUp(dragService: DragDropService): DragDropState {
     return new SelectionToggle();
