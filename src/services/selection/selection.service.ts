@@ -1,4 +1,3 @@
-import { Class } from "../../model/class";
 import { observable, action, IObservableArray } from "mobx";
 
 export class SelectionService {
