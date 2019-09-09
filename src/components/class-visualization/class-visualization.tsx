@@ -26,8 +26,8 @@ export class ClassVisualization extends React.Component<IProps> {
       onMouseDown={(event) => {
         mouseEventService.setOriginalTarget(this.props.classCords);
       }}
-      width="100"
-      height="100"
+      width={this.props.classCords.width}
+      height={this.props.classCords.height}
     />
   }
 }

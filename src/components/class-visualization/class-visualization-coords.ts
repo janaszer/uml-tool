@@ -14,6 +14,9 @@ export class ClassVisualizationCoords {
     y: 0,
   };
 
+  public width: number = 100;
+  public height: number = 100;
+
   constructor(x: number, y: number, id: string) {
     this.originalCoords = {
       x,
