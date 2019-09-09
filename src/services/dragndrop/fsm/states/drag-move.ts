@@ -3,6 +3,7 @@ import { Idle } from "./idle";
 import { DragDropService } from "../../drag-drop.service";
 import { mouseEventService } from "../../../mouse/mouse.event";
 import { classesVisualization } from "../../../../classes";
+import { selectionService } from "../../../selection/selection.service";
 
 export class DragMove extends DragDropState {
   public name: string = 'Drag move';
@@ -23,6 +24,7 @@ export class DragMove extends DragDropState {
     const yShift = currentCoords.y - originalCoords.y;
 
     classesVisualization
+      .filter(classVis => selectionService.isSelected(classVis.id))
       .forEach(classVis => classVis.setCoordsOffset({ x: xShift, y: yShift }));
 
     return this;

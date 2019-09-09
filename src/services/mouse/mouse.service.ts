@@ -15,9 +15,11 @@ export class MouseService {
       this.mouseMove(event);
     });
     element.addEventListener('mouseup', (event: MouseEvent) => {
+      console.log('up');
       this.mouseUp(event);
     });
     element.addEventListener('mousedown', (event: MouseEvent) => {
+      console.log('down');
       this.mouseDown(event);
     });
     element.addEventListener('mouseout', (event) => {

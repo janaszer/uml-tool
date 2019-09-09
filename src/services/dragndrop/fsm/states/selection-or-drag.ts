@@ -4,6 +4,7 @@ import { SelectionToggle } from "./selection-toggle";
 import { DragDropService } from "../../drag-drop.service";
 import { mouseEventService } from "../../../mouse/mouse.event";
 import { Idle } from "./idle";
+import { DragMove } from "./drag-move";
 
 export class SelectionOrDrag extends DragDropState {
   public name: string = 'Selection or drag';
@@ -18,7 +19,8 @@ export class SelectionOrDrag extends DragDropState {
   public onMouseMove(dragService: DragDropService): DragDropState {
     // TODO: compare original target with class
     if (mouseEventService.getOriginalTarget()) {
-      return new DragStart();
+      console.log('drag move');
+      return new DragMove();
     }
     return new Idle();
   }
