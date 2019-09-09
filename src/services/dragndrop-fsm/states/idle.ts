@@ -1,6 +1,6 @@
 import { DragDropState } from "../drag-drop.state";
 import { SelectionOrDrag } from "./selection-or-drag";
-import { DragDropService } from "../../drag-drop.service";
+import { DragDropService } from "../../dragndrop/drag-drop.service";
 
 export class Idle extends DragDropState {
   public name: string = 'Idle';

@@ -1,8 +1,8 @@
 import { DragDropState } from '../drag-drop.state';
 import { Idle } from './idle';
-import { mouseEventService } from '../../../mouse/mouse.event';
-import { selectionService } from '../../../selection/selection.service';
-import { keyboardEventService } from '../../../keyboard/keyboard.event';
+import { mouseEventService } from '../../mouse/mouse.event';
+import { selectionService } from '../../selection/selection.service';
+import { keyboardEventService } from '../../keyboard/keyboard.event';
 
 export class SelectionToggle extends DragDropState {
 

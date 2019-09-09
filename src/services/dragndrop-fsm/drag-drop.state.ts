@@ -1,4 +1,4 @@
-import { DragDropService } from "../drag-drop.service";
+import { DragDropService } from "../dragndrop/drag-drop.service";
 
 export abstract class DragDropState {
   public abstract name: string;

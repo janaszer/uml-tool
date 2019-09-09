@@ -1,7 +1,7 @@
 import { DragDropState } from "../drag-drop.state";
 import { SelectionToggle } from "./selection-toggle";
-import { DragDropService } from "../../drag-drop.service";
-import { mouseEventService } from "../../../mouse/mouse.event";
+import { DragDropService } from "../../dragndrop/drag-drop.service";
+import { mouseEventService } from "../../mouse/mouse.event";
 import { DragMove } from "./drag-move";
 import { RectangleSelectionMove } from "./rectangle-selection-move";
 

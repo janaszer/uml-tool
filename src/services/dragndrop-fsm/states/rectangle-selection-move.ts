@@ -1,9 +1,9 @@
 import { DragDropState } from "../drag-drop.state";
-import { DragDropService } from "../../drag-drop.service";
-import { rectangleSelectionCoords } from "../../../../components/rectangle-selection/rectangle-selection-coords";
+import { DragDropService } from "../../dragndrop/drag-drop.service";
+import { rectangleSelectionCoords } from "../../../components/rectangle-selection/rectangle-selection-coords";
 import { Idle } from "./idle";
-import { classesVisualization } from "../../../../classes";
-import { selectionService } from "../../../selection/selection.service";
+import { classesVisualization } from "../../../classes";
+import { selectionService } from "../../selection/selection.service";
 
 export class RectangleSelectionMove extends DragDropState {
   public name: string = 'Rectangle selection';

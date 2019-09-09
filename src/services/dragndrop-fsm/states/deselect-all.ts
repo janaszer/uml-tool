@@ -1,7 +1,7 @@
 import { DragDropState } from "../drag-drop.state";
 import { Idle } from "./idle";
-import { DragDropService } from "../../drag-drop.service";
-import { selectionService } from "../../../selection/selection.service";
+import { DragDropService } from "../../dragndrop/drag-drop.service";
+import { selectionService } from "../../selection/selection.service";
 
 
 // TODO: to be changed to rectangle selection at some point

@@ -1,9 +1,9 @@
 import { DragDropState } from "../drag-drop.state";
 import { Idle } from "./idle";
-import { DragDropService } from "../../drag-drop.service";
-import { mouseEventService } from "../../../mouse/mouse.event";
-import { classesVisualization } from "../../../../classes";
-import { selectionService } from "../../../selection/selection.service";
+import { DragDropService } from "../../dragndrop/drag-drop.service";
+import { mouseEventService } from "../../mouse/mouse.event";
+import { classesVisualization } from "../../../classes";
+import { selectionService } from "../../selection/selection.service";
 
 export class DragMove extends DragDropState {
   public name: string = 'Drag move';

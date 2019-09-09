@@ -1,5 +1,5 @@
-import { DragDropFsm } from "./fsm/drag-drop.fsm";
-import { MouseEventService, mouseEventService } from "../mouse/mouse.event";
+import { DragDropFsm } from "../dragndrop-fsm/drag-drop.fsm";
+import { mouseEventService } from "../mouse/mouse.event";
 
 export type Coords = {
   x: number;

@@ -1,5 +1,5 @@
 import { DragDropState } from './drag-drop.state';
-import { DragDropService, Coords } from '../drag-drop.service';
+import { DragDropService, Coords } from '../dragndrop/drag-drop.service';
 import { Idle } from './states/idle';
 import { observable } from 'mobx';
 

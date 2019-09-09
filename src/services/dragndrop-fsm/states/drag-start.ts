@@ -1,6 +1,6 @@
 import { DragDropState } from "../drag-drop.state";
 import { DragMove } from "./drag-move";
-import { DragDropService } from "../../drag-drop.service";
+import { DragDropService } from "../../dragndrop/drag-drop.service";
 
 export class DragStart extends DragDropState {
   public name: string = 'Drag start';
