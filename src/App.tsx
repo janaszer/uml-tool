@@ -7,6 +7,7 @@ import { DragDropService } from './services/dragndrop/drag-drop.service';
 import { dragDropFsm } from './services/dragndrop/fsm/drag-drop.fsm';
 import { classesVisualization } from './classes';
 import { selectionService } from './services/selection/selection.service';
+import { KeyboardService } from './services/keyboard/keyboard.service';
 
 type IProps = {};
 
@@ -26,6 +27,8 @@ export class App extends React.Component<IProps, IState> {
   public componentDidMount() {
     const dragDropService = new DragDropService(dragDropFsm);
     const mouseService = new MouseService(dragDropService);
+    const keyboardService = new KeyboardService();
+    keyboardService.attachEvents();
     if (this.svgRef && this.svgRef.current) {
       mouseService.attachEvents(this.svgRef.current);
     }
