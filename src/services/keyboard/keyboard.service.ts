@@ -7,10 +7,10 @@ export class KeyboardService {
   private COMMAND_CODE = 91;
 
   public attachEvents() {
-    window.addEventListener('keyup', (event: KeyboardEvent) => {
+    window.addEventListener('keydown', (event: KeyboardEvent) => {
       switch (event.keyCode) {
         case this.CTRL_CODE:
-          keyboardEventService.commandPressed = true;
+          keyboardEventService.ctrlPressed = true;
           return;
         case this.OPTION_CODE:
           keyboardEventService.optionPressed = true;
@@ -20,10 +20,10 @@ export class KeyboardService {
           return;
       };
     }, false);
-    window.addEventListener('keydown', (event: KeyboardEvent) => {
+    window.addEventListener('keyup', (event: KeyboardEvent) => {
       switch (event.keyCode) {
         case this.CTRL_CODE:
-          keyboardEventService.commandPressed = false;
+          keyboardEventService.ctrlPressed = false;
           return;
         case this.OPTION_CODE:
           keyboardEventService.optionPressed = false;
