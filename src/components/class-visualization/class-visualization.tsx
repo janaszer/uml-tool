@@ -23,7 +23,9 @@ export class ClassVisualization extends React.Component<IProps> {
       x={this.props.classCords.coords.x}
       y={this.props.classCords.coords.y}
       style={strokeStyle}
-      onMouseDown={(event) => { mouseEventService.setOriginalTarget(this.props.classCords); }}
+      onMouseDown={(event) => {
+        mouseEventService.setOriginalTarget(this.props.classCords);
+      }}
       width="100"
       height="100"
     />

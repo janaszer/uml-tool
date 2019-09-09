@@ -4,6 +4,7 @@ import { DragDropService } from "../../drag-drop.service";
 import { mouseEventService } from "../../../mouse/mouse.event";
 import { Idle } from "./idle";
 import { DragMove } from "./drag-move";
+import { DeselectAll } from "./deselect-all";
 
 export class SelectionOrDrag extends DragDropState {
   public name: string = 'Selection or drag';
@@ -23,7 +24,7 @@ export class SelectionOrDrag extends DragDropState {
       }
       return new DragMove();
     }
-    return new Idle();
+    return new DeselectAll();
   }
   public onMouseUp(dragService: DragDropService): DragDropState {
     return new SelectionToggle();
@@ -35,6 +36,7 @@ export class SelectionOrDrag extends DragDropState {
     if (!currentCoords) {
       return 0;
     }
-    return Math.sqrt(Math.pow(originalCoords.x - currentCoords.x, 2) + Math.pow(originalCoords.y - currentCoords.y, 2));
+    return Math.sqrt(Math.pow(originalCoords.x - currentCoords.x, 2) +
+      Math.pow(originalCoords.y - currentCoords.y, 2));
   }
 }
