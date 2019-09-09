@@ -11,7 +11,10 @@ export class SelectionToggle extends DragDropState {
     if (originalTarget) {
       selectionService.toggleSelection(originalTarget.id);
       mouseEventService.clearOriginalTarget();
+      return new Idle();
     }
+
+    selectionService.clearSelection();
     return new Idle();
   }
 }
