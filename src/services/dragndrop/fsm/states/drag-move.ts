@@ -8,6 +8,20 @@ import { selectionService } from "../../../selection/selection.service";
 export class DragMove extends DragDropState {
   public name: string = 'Drag move';
 
+  public onInit(dragService: DragDropService): DragDropState {
+    const originalTarget = mouseEventService.getOriginalTarget();
+    if (!originalTarget) {
+      return this;
+    }
+
+    if (!selectionService.isSelected(originalTarget.id)) {
+      selectionService.clearSelection();
+      selectionService.addToSelection(originalTarget.id);
+    }
+
+    return this;
+  }
+
   public onMouseUp(dragService: DragDropService): DragDropState {
     classesVisualization.forEach(classVis => classVis.commitPosition());
     mouseEventService.clearOriginalTarget();
