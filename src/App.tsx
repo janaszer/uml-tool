@@ -8,6 +8,7 @@ import { dragDropFsm } from './services/dragndrop/fsm/drag-drop.fsm';
 import { classesVisualization } from './classes';
 import { selectionService } from './services/selection/selection.service';
 import { KeyboardService } from './services/keyboard/keyboard.service';
+import { RectangleSelection } from './components/rectangle-selection/rectangle-selection';
 
 type IProps = {};
 
@@ -53,6 +54,7 @@ export class App extends React.Component<IProps, IState> {
           ref={this.svgRef}
         >
           {this.renderClasses()}
+          <RectangleSelection />
         </svg>
       </div>
     );
