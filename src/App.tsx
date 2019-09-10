@@ -9,6 +9,7 @@ import { classesVisualization } from './classes';
 import { selectionService } from './services/selection/selection.service';
 import { KeyboardService } from './services/keyboard/keyboard.service';
 import { RectangleSelection } from './components/rectangle-selection/rectangle-selection';
+import { GuideVisualization } from './components/class-visualization/guide-visualization';
 
 type IProps = {};
 
@@ -55,6 +56,7 @@ export class App extends React.Component<IProps, IState> {
         >
           {this.renderClasses()}
           <RectangleSelection />
+          <GuideVisualization classVisualization={classesVisualization} />
         </svg>
       </div>
     );
