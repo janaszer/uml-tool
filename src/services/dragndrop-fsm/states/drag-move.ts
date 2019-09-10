@@ -4,9 +4,20 @@ import { DragDropService } from "../../dragndrop/drag-drop.service";
 import { mouseEventService } from "../../mouse/mouse.event";
 import { classesVisualization } from "../../../classes";
 import { selectionService } from "../../selection/selection.service";
+import { SnapService } from "../../dragndrop/snap.service";
+import { DragService } from "../../dragndrop/drag.service";
 
 export class DragMove extends DragDropState {
+
+  private dragService: DragService;
+
   public name: string = 'Drag move';
+
+  constructor() {
+    super();
+    const snapService = new SnapService();
+    this.dragService = new DragService(snapService);
+  }
 
   public onInit(dragService: DragDropService): DragDropState {
     const originalTarget = mouseEventService.getOriginalTarget();
@@ -37,9 +48,15 @@ export class DragMove extends DragDropState {
     const xShift = currentCoords.x - originalCoords.x;
     const yShift = currentCoords.y - originalCoords.y;
 
-    classesVisualization
+    const selectedClasses = classesVisualization
       .filter(classVis => selectionService.isSelected(classVis.id))
-      .forEach(classVis => classVis.setCoordsOffset({ x: xShift, y: yShift }));
+
+    if (selectedClasses.length === 1) {
+      this.dragService.setCoordsOffset(selectedClasses[0], { x: xShift, y: yShift });
+      return this;
+    }
+    
+    selectedClasses.forEach(classVis => classVis.setCoordsOffset({ x: xShift, y: yShift }));
 
     return this;
   }
