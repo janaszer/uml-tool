@@ -6,6 +6,10 @@ type SnappingObject = {
   coord: number,
 };
 
+type SnapObjectResult = SnappingObject & {
+  distance: number,
+};
+
 export class SnapService {
   public calculateSnapCoords(target: ClassVisualizationCoords, snappingObjects: ClassVisualizationCoords[], desiredCoords: Coords): Coords {
     if (snappingObjects.length === 0) {
@@ -16,24 +20,42 @@ export class SnapService {
     const horizontalTargetMiddle = desiredCoords.y + Math.round(target.height / 2);
     const horizontalTargetEnd = desiredCoords.y + target.height;
 
-    const snappingObjectsMiddle = snappingObjects.map(obj => ({
-      obj,
-      coord: obj.coords.y + Math.round(obj.height / 2),
-    }))
+    const snappingObjectsStart = snappingObjects.map(this.mapToHorizontalObjectStart);
+    const snappingObjectsMiddle = snappingObjects.map(this.mapToHorizontalObjectMiddle);
+    const snappingObjectsEnd = snappingObjects.map(this.mapToHorizontalObjectEnd);
 
-    const horizontalSnapStart = this.calculateSnaps(horizontalTargetMiddle, snappingObjectsMiddle)
-      .map(snap => ({
-        obj: snap.obj,
-        coord: snap.coord - Math.round(target.height / 2),
-      }));
+    const horizontalSnapStart = this.calculateSnaps(horizontalTargetMiddle, snappingObjectsStart)
+      .map(this.mapFromTargetStart(target));
+    const horizontalSnapMiddle = this.calculateSnaps(horizontalTargetMiddle, snappingObjectsMiddle)
+      .map(this.mapFromTargetMiddle(target));
+    const horizontalSnapEnd = this.calculateSnaps(horizontalTargetMiddle, snappingObjectsEnd)
+      .map(this.mapFromTargetEnd(target));
+
+    const allHorizontalSnaps = [
+      ...horizontalSnapStart,
+      ...horizontalSnapMiddle,
+      ...horizontalSnapEnd,
+    ];
+
+    allHorizontalSnaps.sort((a, b) => a.distance - b.distance);
 
     this.clearAllGuides(snappingObjects);
-    if (horizontalSnapStart.length === 0) {
+    if (allHorizontalSnaps.length === 0) {
       return desiredCoords;
     }
 
-    const snapObject = horizontalSnapStart[0];
-    snapObject.obj.horizontalGuides.middle = true;
+    const snapObject = allHorizontalSnaps[0];
+    switch (snapObject.snapType) {
+      case 'start':
+        snapObject.obj.horizontalGuides.start = true;
+        break;
+      case 'middle':
+        snapObject.obj.horizontalGuides.middle = true;
+        break;
+      case 'end':
+        snapObject.obj.horizontalGuides.end = true;
+        break;
+    }
 
     return {
       x: desiredCoords.x,
@@ -45,9 +67,58 @@ export class SnapService {
     snappingObjects.forEach(snapObject => snapObject.clearGuides());
   }
 
-  private calculateSnaps(coord: number, snappingObjects: SnappingObject[]) {    
+  private mapToHorizontalObjectStart(obj: ClassVisualizationCoords) {
+    return {
+      obj,
+      coord: obj.coords.y,
+    };
+  }
+
+  private mapToHorizontalObjectMiddle(obj: ClassVisualizationCoords) {
+    return {
+      obj,
+      coord: obj.coords.y + Math.round(obj.height / 2),
+    };
+  }
+
+  private mapToHorizontalObjectEnd(obj: ClassVisualizationCoords) {
+    return {
+      obj,
+      coord: obj.coords.y + obj.height,
+    };
+  }
+
+  private mapFromTargetStart(target: ClassVisualizationCoords) {
+    return (snap: SnapObjectResult) => ({
+      ...snap,
+      coord: snap.coord - Math.round(target.height / 2),
+      snapType: 'start',
+    });
+  }
+
+  private mapFromTargetMiddle(target: ClassVisualizationCoords) {
+    return (snap: SnapObjectResult) => ({
+      ...snap,
+      coord: snap.coord - Math.round(target.height / 2),
+      snapType: 'middle',
+    });
+  }
+
+  private mapFromTargetEnd(target: ClassVisualizationCoords) {
+    return (snap: SnapObjectResult) => ({
+      ...snap,
+      coord: snap.coord - Math.round(target.height / 2),
+      snapType: 'end',
+    });
+  }
+
+  private calculateSnaps(coord: number, snappingObjects: SnappingObject[]): SnapObjectResult[] {    
     return snappingObjects
-      .filter(snapObject => this.isAroundRadius(snapObject.coord, coord, 20));
+      .filter(snapObject => this.isAroundRadius(snapObject.coord, coord, 20))
+      .map(snapObject => ({
+        ...snapObject,
+        distance: Math.abs(snapObject.coord - coord),
+      }));
   }
 
   private isAroundRadius(position: number, target: number, radius: number) {

@@ -70,10 +70,10 @@ export class ClassVisualizationCoords {
   public clearGuides() {
     this.verticalGuides.start = false;
     this.verticalGuides.middle = false;
-    this.verticalGuides.middle = false;
+    this.verticalGuides.end = false;
     this.horizontalGuides.start = false;
     this.horizontalGuides.middle = false;
-    this.horizontalGuides.middle = false;
+    this.horizontalGuides.end = false;
   }
 
 }
