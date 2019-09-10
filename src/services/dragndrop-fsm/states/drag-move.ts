@@ -10,13 +10,14 @@ import { DragService } from "../../dragndrop/drag.service";
 export class DragMove extends DragDropState {
 
   private dragService: DragService;
+  private snapService: SnapService;
 
   public name: string = 'Drag move';
 
   constructor() {
     super();
-    const snapService = new SnapService();
-    this.dragService = new DragService(snapService);
+    this.snapService = new SnapService();
+    this.dragService = new DragService(this.snapService);
   }
 
   public onInit(dragService: DragDropService): DragDropState {
@@ -36,6 +37,7 @@ export class DragMove extends DragDropState {
   public onMouseUp(dragService: DragDropService): DragDropState {
     classesVisualization.forEach(classVis => classVis.commitPosition());
     mouseEventService.clearOriginalTarget();
+    this.snapService.clearAllGuides(classesVisualization);
     return new Idle();
   }
 

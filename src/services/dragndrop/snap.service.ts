@@ -1,17 +1,10 @@
 import { Coords } from "./drag-drop.service";
 import { ClassVisualizationCoords } from "../../components/class-visualization/class-visualization-coords";
 
-type SnapTypeHorizontal = {
-  snapType: 'HORIZONTAL',
-  y: number,
-}
-type SnapTypeVertical = {
-  snapType: 'VERTICAL',
-  x: number;
+type SnappingObject = {
+  obj: ClassVisualizationCoords,
+  coord: number,
 };
-type SnapType = SnapTypeHorizontal | SnapTypeVertical;
-type WithDistance<T extends object> = T & { distance: number };
-type WithId<T extends object> = T & { id: string };
 
 export class SnapService {
   public calculateSnapCoords(target: ClassVisualizationCoords, snappingObjects: ClassVisualizationCoords[], desiredCoords: Coords): Coords {
@@ -19,44 +12,42 @@ export class SnapService {
       return desiredCoords;
     }
 
-    const snapCoords = this.calculateMiddleVerticalSnap(target, snappingObjects, desiredCoords);
-    if (!snapCoords) {
+    const horizontalTargetStart = desiredCoords.y;
+    const horizontalTargetMiddle = desiredCoords.y + Math.round(target.height / 2);
+    const horizontalTargetEnd = desiredCoords.y + target.height;
+
+    const snappingObjectsMiddle = snappingObjects.map(obj => ({
+      obj,
+      coord: obj.coords.y + Math.round(obj.height / 2),
+    }))
+
+    const horizontalSnapStart = this.calculateSnaps(horizontalTargetMiddle, snappingObjectsMiddle)
+      .map(snap => ({
+        obj: snap.obj,
+        coord: snap.coord - Math.round(target.height / 2),
+      }));
+
+    this.clearAllGuides(snappingObjects);
+    if (horizontalSnapStart.length === 0) {
       return desiredCoords;
     }
 
+    const snapObject = horizontalSnapStart[0];
+    snapObject.obj.horizontalGuides.middle = true;
+
     return {
-      x: snapCoords.x,
-      y: desiredCoords.y,
+      x: desiredCoords.x,
+      y: snapObject.coord,
     };
   }
 
-  private calculateMiddleVerticalSnap(target: ClassVisualizationCoords, snappingObjects: ClassVisualizationCoords[], desiredCoords: Coords): WithId<WithDistance<SnapTypeVertical>> | undefined {
-    const targetMiddleVertical = Math.round(target.width / 2) + desiredCoords.x;
-    
-    const snappingObjectsMiddleVertical = snappingObjects.map(snapObject => ({ 
-      coords: snapObject,
-      x: Math.round(snapObject.width / 2) + snapObject.coords.x,
-    }));
-    
-    const availableMiddleVerticalSnaps = snappingObjectsMiddleVertical.filter(snapObjectX => this.isAroundRadius(targetMiddleVertical, snapObjectX.x, 20));
-    if (availableMiddleVerticalSnaps.length === 0) {
-      return undefined;
-    }
-    return {
-      id: availableMiddleVerticalSnaps[0].coords.id,
-      snapType: 'VERTICAL',
-      x: availableMiddleVerticalSnaps[0].x - Math.round(target.width / 2),
-      distance: 0,
-    };
+  public clearAllGuides(snappingObjects: ClassVisualizationCoords[]) {
+    snappingObjects.forEach(snapObject => snapObject.clearGuides());
   }
-  
-  private calculateMiddleHorizontalSnap(target: ClassVisualizationCoords, snappingObjects: ClassVisualizationCoords[], desiredCoords: Coords): WithId<WithDistance<SnapTypeHorizontal>> | undefined {
-    const targetMiddleHorizontal = Math.round(target.height / 2) + desiredCoords.y;
-    const snappingObjectsMiddleHorizontal = snappingObjects.map(snapObject => ({
-      coords: snapObject,
-      x: Math.round(snapObject.height / 2) + snapObject.coords.y,
-    }));
-    return undefined;
+
+  private calculateSnaps(coord: number, snappingObjects: SnappingObject[]) {    
+    return snappingObjects
+      .filter(snapObject => this.isAroundRadius(snapObject.coord, coord, 20));
   }
 
   private isAroundRadius(position: number, target: number, radius: number) {
