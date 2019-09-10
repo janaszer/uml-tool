@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import './App.css';
-import { ClassVisualization } from './components/class-visualization/class-visualization';
+import { ClassVisualizationComponent } from './components/class-visualization/class-visualization';
 import { MouseService } from './services/mouse/mouse.service';
 import { DragDropService } from './services/dragndrop/drag-drop.service';
 import { dragDropFsm } from './services/dragndrop-fsm/drag-drop.fsm';
@@ -37,10 +37,10 @@ export class App extends React.Component<IProps, IState> {
 
   private renderClasses() {
     return classesVisualization.map(
-      classCoords => {
-        const isSelected = selectionService.isSelected(classCoords.id);
+      classVisualization => {
+        const isSelected = selectionService.isSelected(classVisualization.id);
 
-        return <ClassVisualization classCords={classCoords} isSelected={isSelected} />;
+        return <ClassVisualizationComponent classVisualization={classVisualization} isSelected={isSelected} />;
       }
     )
   }

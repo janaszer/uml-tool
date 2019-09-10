@@ -14,6 +14,20 @@ export class ClassVisualizationCoords {
     y: 0,
   };
 
+  @observable
+  public verticalGuides = {
+    start: false,
+    middle: false,
+    end: false,
+  };
+
+  @observable
+  public horizontalGuides = {
+    start: false,
+    middle: false,
+    end: false,
+  }
+
   public width: number = 100;
   public height: number = 100;
 
@@ -30,9 +44,9 @@ export class ClassVisualizationCoords {
   }
 
   @action
-  public setCoords(x: number, y: number) {
-    this.coords.x = x;
-    this.coords.y = y;
+  public setCoords(coords: Coords) {
+    this.coords.x = coords.x;
+    this.coords.y = coords.y;
   }
 
   @action
@@ -46,6 +60,20 @@ export class ClassVisualizationCoords {
       x: this.coords.x,
       y: this.coords.y,
     };
+  }
+
+  public getOriginalCoords(): Coords {
+    return this.originalCoords;
+  }
+
+  @action
+  public clearGuides() {
+    this.verticalGuides.start = false;
+    this.verticalGuides.middle = false;
+    this.verticalGuides.middle = false;
+    this.horizontalGuides.start = false;
+    this.horizontalGuides.middle = false;
+    this.horizontalGuides.middle = false;
   }
 
 }
