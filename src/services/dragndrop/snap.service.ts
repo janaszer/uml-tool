@@ -17,6 +17,8 @@ type SnapType = {
 type SnapObjectWithType = SnapObjectResult & SnapType;
 
 export class SnapService {
+
+  // TODO: to be fixed: function is really long and complicated
   public calculateSnapCoords(target: ClassVisualizationCoords, snappingObjects: ClassVisualizationCoords[], desiredCoords: Coords): Coords {
     if (snappingObjects.length === 0) {
       return desiredCoords;

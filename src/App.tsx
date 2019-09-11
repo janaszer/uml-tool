@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import './App.css';
-import { ClassVisualizationComponent } from './components/class-visualization/class-visualization';
+import { ClassVisualizationComponent } from './components/class-visualization/class-visualization.component';
 import { MouseService } from './services/mouse/mouse.service';
 import { DragDropService } from './services/dragndrop/drag-drop.service';
 import { dragDropFsm } from './services/dragndrop-fsm/drag-drop.fsm';

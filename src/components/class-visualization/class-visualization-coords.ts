@@ -28,7 +28,10 @@ export class ClassVisualizationCoords {
     end: false,
   }
 
+  @observable
   public width: number = 100;
+
+  @observable
   public height: number = 100;
 
   constructor(x: number, y: number, id: string) {
