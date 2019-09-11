@@ -29,7 +29,7 @@ export class ClassVisualizationComponent extends React.Component<IProps> {
         x={this.props.classVisualization.coords.x}
         y={this.props.classVisualization.coords.y}
         style={strokeStyle}
-        fill="white"
+        fill="#23c1e8" // "#fbe703"
         onMouseDown={(event) => {
           mouseEventService.setOriginalTarget(this.props.classVisualization);
         }}
@@ -39,7 +39,7 @@ export class ClassVisualizationComponent extends React.Component<IProps> {
       </rect>
       <text
         x={this.props.classVisualization.coords.x + halfWidth}
-        y={this.props.classVisualization.coords.y + 15}
+        y={this.props.classVisualization.coords.y + 10}
         width={this.props.classVisualization.width}
         height={this.props.classVisualization.height}
         style={{ font: 'bold 10px sans-serif', }}
@@ -47,6 +47,14 @@ export class ClassVisualizationComponent extends React.Component<IProps> {
       >
         DragMove
       </text>
+      <line
+        stroke="black"
+        strokeWidth="1"
+        x1={this.props.classVisualization.coords.x}
+        y1={this.props.classVisualization.coords.y + 15}
+        x2={this.props.classVisualization.coords.x + this.props.classVisualization.width}
+        y2={this.props.classVisualization.coords.y + 15}
+      />
     </g>;
   }
 }
